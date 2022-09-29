@@ -16,7 +16,8 @@ namespace DemoMVC.Controllers{
             // ViewData["toUpperString"] = Xulychuoi.toUpperString(stringInput);
             // ViewData["toLowerString"] = Xulychuoi.toLowerString(stringInput);
             // ViewData["CapitalizeOneFirstCharacter"] = Xulychuoi.CapitalizeOneFirstCharacter(stringInput);
-            ViewData["CapitalizeFirstCharacter"] = Xulychuoi.CapitalizeOneFirstCharacter(stringInput);
+            ViewData["CapitalizeFirstCharacter"] = Xulychuoi.CapitalizeFirstCharacter(stringInput);
+            ViewData["RemoveVietnameseAccents"] = Xulychuoi.RemoveVietnameseAccents(stringInput);
 
             return View();
         }
