@@ -1,0 +1,17 @@
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="GiaiPTbac2" method="post" class="form-check">
+    <label>He so thu nhat: </label>
+    <input type="text" name="a" value="" /><br>
+    <label>He so thu hai: </label>
+    <input type="text" name="b" value="" /><br>
+    <label>He so thu ba: </label>
+    <input type="text" name="c" value="" />
+    <input type="submit" class="btn-outline-success" name="name" value="Send" />
+</form>
+<br />
+<br />
+<h2>@ViewData["Result"]</h2>
