@@ -1,0 +1,24 @@
+@model IEnumerable<TranBaVuBTH2.Models.Employee>
+
+<p>
+    <a  class="btn btn-success" asp-action="Create">Create a Employee</a>
+</p>
+<table class="table table-all">
+    <tr>
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>Employee Address</th>
+        <th>Employee Phone</th>
+        <th>Employee Email</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(m => item.EmployeeID)</td>
+            <td>@Html.DisplayFor(m => item.EmployeeName)</td>
+            <td>@Html.DisplayFor(m => item.EmployeeAddress)</td>
+            <td>@Html.DisplayFor(m => item.EmployeePhone)</td>
+            <td>@Html.DisplayFor(m => item.EmployeeEmail)</td>
+        </tr>
+    }
+</table>
