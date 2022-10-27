@@ -1,4 +1,4 @@
-@model IEnumerable<TranBaVuBTH2.Models.Student>
+﻿@model IEnumerable<TranBaVuBTH2.Models.Student>
 
 <p>
     <a  class="btn btn-success" asp-action="Create">Create a Student</a>
@@ -13,6 +13,10 @@
         <tr>
             <td>@Html.DisplayFor(m => item.StudentID)</td>
             <td>@Html.DisplayFor(m => item.StudentName)</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StudentID">Sửa</a>
+                <a asp-action="Delete" asp-route-id="@item.StudentID">Xóa</a>
+            </td>
         </tr>
     }
 </table>
