@@ -92,7 +92,7 @@ namespace TranBaVuBTH2.Controllers{
         }
 
         [HttpPost,ActionName("Delete")]
-        [ValidateAntiForgeryToken];
+        [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
