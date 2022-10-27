@@ -2,7 +2,7 @@
 
 @{ViewData["title"] = "Delete";
 }
-<h3>Bạn có muốn xóa thông tin nhân viên</h3>
+<h3>Bạn có muốn xóa thông tin sinh viên</h3>
 <div>
     <hr />
     <dl class="row">
@@ -18,5 +18,5 @@
 <form asp-action="Delete" method="post">
     <input type="hidden" asp-for="StudentID" />
     <input type="submit" class="btn btn-danger" value="Delete" />
-    <a class="btn btn-success" asp-action="Index">Danh sach sinh vien</a>
+    <a class="btn btn-success" asp-action="Index">Danh sách sinh viên</a>
 </form>

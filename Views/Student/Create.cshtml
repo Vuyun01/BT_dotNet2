@@ -6,11 +6,11 @@
 <form asp-action="Create" method="post">
     <input type="hidden" value="@studentID" name="StudentID">
     <div class="mb-3">
-      <label for="student_Name">Name:</label>
+      <label for="student_Name">Student name:</label>
       <input type="text" class="form-control" id="student_Name" placeholder="Enter student name" name="StudentName">
     </div>
     <div class="mb-3">
       <button type="submit" class="btn btn-primary">Submit</button>
-      <a class="btn btn-success" asp-action="Index">Danh sach sinh vien</a>
+      <a class="btn btn-success" asp-action="Index">Danh sách sinh viên</a>
     </div>
 </form>

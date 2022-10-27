@@ -1,4 +1,4 @@
-@model IEnumerable<TranBaVuBTH2.Models.Customer>
+﻿@model IEnumerable<TranBaVuBTH2.Models.Customer>
 
 <p>
     <a  class="btn btn-success" asp-action="Create">Create a Customer</a>
@@ -17,6 +17,10 @@
             <td>@Html.DisplayFor(m => item.CustomerName)</td>
             <td>@Html.DisplayFor(m => item.CustomerAddress)</td>
             <td>@Html.DisplayFor(m => item.CustomerPhone)</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerID" class="btn btn-success">Sửa</a>
+                <a asp-action="Delete" asp-route-id="@item.CustomerID" class="btn btn-danger">Xóa</a>
+            </td>
         </tr>
     }
 </table>
