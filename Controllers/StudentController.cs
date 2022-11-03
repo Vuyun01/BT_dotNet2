@@ -2,6 +2,7 @@ using TranBaVuBTH2.Data;
 using TranBaVuBTH2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TranBaVuBTH2.Models.Process;
 
 namespace TranBaVuBTH2.Controllers{
     public class StudentController : Controller{
@@ -101,6 +102,64 @@ namespace TranBaVuBTH2.Controllers{
             _context.Students.Remove(std);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private ExcelProcess _excelProcess = new ExcelProcess();
+        public async Task<IActionResult> Upload()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            if (file != null)
+            {
+                string fileExtension = Path.GetExtension(file.FileName);
+                if (fileExtension != ".xls" && fileExtension != ".xlsx")
+                {
+                    ModelState.AddModelError("", "Please choose excel file to upload");
+                }
+                else
+                {
+                    //rename file when upload to server
+                    var fileName = DateTime.Now.ToShortTimeString() + fileExtension;
+
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory() + "/Upload/Excels", fileName);
+                    var fileLocation = new FileInfo(filePath).ToString();
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        //save file to server
+                        await file.CopyToAsync(stream);
+                        //read data from file and write to database
+                        var dt = _excelProcess.ExcelToDataTable(fileLocation);
+                        //using for loop to read data from dt
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            //create a new Student object
+                            var emp = new Student();
+                            //set values for attributes
+                            emp.StudentID = dt.Rows[i][0].ToString();
+                            emp.StudentName = dt.Rows[i][1].ToString();
+ 
+
+                            //add object to Context
+                            if (!StudentExists(emp.StudentID))
+                            {
+                                _context.Students.Add(emp);
+                            }
+
+                        }
+                        //save to database
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+
+
+                }
+            }
+            return View();
         }
 
     }
