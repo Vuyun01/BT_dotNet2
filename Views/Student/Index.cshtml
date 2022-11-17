@@ -9,12 +9,15 @@
     <tr>
         <th>Student ID</th>
         <th>Student Name</th>
+        <th>Faculty</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@Html.DisplayFor(m => item.StudentID)</td>
             <td>@Html.DisplayFor(m => item.StudentName)</td>
+            <td>@Html.DisplayFor(m => item.Faculty!.FacultyName)</td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StudentID" class="btn btn-success">Sửa</a>
                 <a asp-action="Delete" asp-route-id="@item.StudentID" class="btn btn-danger">Xóa</a>

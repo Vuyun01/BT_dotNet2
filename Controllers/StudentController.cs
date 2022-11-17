@@ -3,10 +3,13 @@ using TranBaVuBTH2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TranBaVuBTH2.Models.Process;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TranBaVuBTH2.Controllers{
     public class StudentController : Controller{
         private readonly ApplicationDbContext _context;
+
+        private StringProcess strProcess = new StringProcess();
 
         public StudentController(ApplicationDbContext context){
             _context = context;
@@ -18,16 +21,31 @@ namespace TranBaVuBTH2.Controllers{
         }
 
         public IActionResult Create(){
+            ViewData["FacultyID"] = new SelectList(_context.Faculties, "FacultyID", "FacultyName");
+            var stdID = "STD001";
+            var numStudent = _context.Students.Count();
+            if(numStudent > 0)
+            {
+                stdID = _context.Students.OrderByDescending(s => s.StudentID).First().StudentID;
+                ViewData["StudentID"] = strProcess.AutoGenerateCode(stdID);
+            }
+            else
+            {
+                ViewData["StudentID"] = stdID;
+            }
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Student std){
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("StudentID, StudentName, FacultyID")] Student std){
             if(ModelState.IsValid){
                 _context.Add(std);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FacultyID"] = new SelectList(_context.Faculties, "FacultyID", "FacultyName",std.FacultyID);
+            ViewData["StudentID"] = std.StudentID;
             return View(std);
         }
         private bool StudentExists(string id)
@@ -37,6 +55,7 @@ namespace TranBaVuBTH2.Controllers{
 
         public async Task<IActionResult> Edit(string id)
         {
+            ViewData["FacultyID"] = new SelectList(_context.Faculties, "FacultyID", "FacultyName");
             if (id == null)
             {
                 return View("NotFound");
@@ -50,8 +69,9 @@ namespace TranBaVuBTH2.Controllers{
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentID, StudentName")] Student std)
+        public async Task<IActionResult> Edit(string id, [Bind("StudentID, StudentName, FacultyID")] Student std)
         {
+
             if(id != std.StudentID)
             {
                 return View("NotFound");

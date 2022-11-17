@@ -11,11 +11,19 @@
     <div class="col-md-4">
         <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="StudentID" />
+            <div class="form-group">
+                <label class="form-label" asp-for="StudentID">Student name:</label>
+                <input asp-for="StudentID" class="form-control" value="@Model.StudentID" readonly />
+            </div>
             <div class="form-group">
                 <label class="form-label" asp-for="StudentName">Student name:</label>
                 <input asp-for="StudentName" class="form-control" />
                 <span asp-validation-for="StudentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-label" asp-for="FacultyID">Faculty:</label>
+                <select asp-for="FacultyID" class="form-control" asp-items="ViewBag.FacultyID"></select>
+                <span asp-validation-for="FacultyID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
